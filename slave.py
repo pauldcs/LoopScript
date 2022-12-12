@@ -129,6 +129,10 @@ def generate_random_string(size):
             string.ascii_lowercase,
             k=size))
 
+def press_backspace(num_times):
+    for i in range(num_times):
+        pyautogui.press("backspace")
+
 def __writer(
         string,
         chunk_length=7,
@@ -167,34 +171,35 @@ def random_sleep():
  
 
 # TASKS
+# def main():
+#     count = 0
+#     clicks = [
+# 		((363, 119), 0.5),
+# 		((686, 419), 0.5)]
+#     move_cursor_randomly(10)
+#     while True:
+#         count += 1
+#         print (f"[loop: '{count}']", end ="\r")
+#         for click in clicks:
+#             __clicker(*click)
+
+#RENAME
 def main():
-    count = 0
-    clicks = [
+    clicks_1 = [
 		((363, 119), 0.5),
 		((686, 419), 0.5)]
-    move_cursor_randomly(10)
+
+    clicks_2 = [
+		((363, 119), 0.5),
+		((686, 419), 0.5)]
+
     while True:
-        count += 1
-        print (f"[loop: '{count}']", end ="\r")
-        for click in clicks:
+        for click in clicks_1:
             __clicker(*click)
-
-# RENAME
-# def main():
-#     clicks_1 = [
-# 		((363, 119), 0.5),
-# 		((686, 419), 0.5)]
-
-#     clicks_2 = [
-# 		((363, 119), 0.5),
-# 		((686, 419), 0.5)]
-
-#     while True:
-#         for click in clicks_1:
-#             __clicker(*click)
-#         __writer(generate_random_string(random.uniform(8, 16)))
-#         for click in clicks_2:
-#             __clicker(*click)
+        __writer(
+            generate_random_string(random_inrange(8, 16)))
+        for click in clicks_2:
+            __clicker(*click)
 
 
 if __name__ == "__main__":
