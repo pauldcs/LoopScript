@@ -118,13 +118,6 @@ def __clicker(coordinates, duration=0.4):
     except pyautogui.FailSafeException:
         __clicker(coordinates, duration)
 
-
-def shoot_invader(duration, count):
-    for i in range(count):
-        __clicker((327, 682), 0.4)
-        time.sleep(duration)
-    __clicker((519, 680), 0.4)
-
 def generate_random_string(size):
     return ''.join(
         random.choices(
@@ -155,69 +148,82 @@ def random_sleep():
         print("Going to sleep for {} seconds".format(sleep_time))
         time.sleep(sleep_time)
 
+def shoot_invader(duration, count):
+    for i in range(count):
+        __clicker((327, 682), 0.4)
+        time.sleep(duration)
+    __clicker((519, 680), 0.4)
+
 # INVADERS
-# def main():
-#     count = 0
-#     clicks_1 = [
-#         #  min_x max_x  min_y max_y  duration
-#         (((364,  375), (114,  123)), 1), # Navigator
-#         (((673,  709), (417,  421)), 0.6), # Invader's location
-#         (((316,  378), (594,  603)), 0.5), # Yes, go to coordinates
-#         (((317,  356), (548,  579)), 0.5),
-#         (((507,  564), (600,  612)), 0.5), # Apply
-#         (((318,  375), (596,  603)), 0.4), # Yes
-#         (((526,  546), (412,  425)), 0.9)] # click invader
+def main():
+    count = 0
+    clicks_1 = [
+        (((364,  375), (114,  123)), 1),     # Navigator
+        (((673,  709), (417,  421)), 0.6),   # Invader's location
+        (((316,  378), (594,  603)), 0.5),   # Yes, go to coordinates
+        (((317,  356), (548,  579)), 0.5),   # Location down
+        (((507,  564), (600,  612)), 0.5),   # Apply
+        (((318,  375), (596,  603)), 0.4)]   # Yes
     
-#     clicks_2 = [
-#         #  min_x max_x  min_y max_y  duration
-#         (((526,  546), (412,  425)), 0.9)] # turn off
+    clicks_2 = [
+        (((600,  610), (320,  320)), 0.9)]   # Red cross
 
+    time.sleep(0.7)
 
-#     while True:
-#         count += 1
-#         print (f"[loop: '{count}']", end ="\r")
-#         for i, click in enumerate(clicks_1):
-#             coords = click[0]
-#             duration = click[1]
-#             if i == 3:
-#                 # Prompt the user to choose coordinates
-#                 print("Choose which coordinates to use for the click:")
-#                 print("1. ((317,  356), (548,  579)) # down")
-#                 print("2. ((295,  320), (410,  426)) # left")
-#                 print("3. ((480,  520), (400,  440)) # up")
-#                 print("4. ((470,  505), (529,  560)) # right")
-#                 print(coords)
-#                 choice = int(input())
-#                 if choice == 1:
-#                     coords = ((317,  356), (548,  579))
-#                 elif choice == 2:
-#                     coords = ((295,  320), (410,  426))
-#                 elif choice == 3:
-#                     coords = ((480,  520), (400,  440))
-#                 elif choice == 4:
-#                     coords = ((470,  505), (529,  560))
+    while True:
+        choice = ""
+        count += 1
+        print (f"[loop: '{count}']", end ="\r")
+        for i, click in enumerate(clicks_1):
+            coords = click[0]
+            duration = click[1]
+            if click == (((317,  356), (548,  579)), 0.5):
+                print("Choose the click:")
+                print("\t1. DOWN")
+                print("\t2. LEFT")
+                print("\t3. UP")
+                print("\t4. RIGHT")
+                print(coords)
+                choice = int(input())
+                if choice == 1:     coords = ((317,  356), (548,  579))
+                elif choice == 2:   coords = ((295,  320), (410,  426))
+                elif choice == 3:   coords = ((480,  520), (400,  440))
+                elif choice == 4:   coords = ((470,  505), (529,  560))
+
+                __clicker((317, 579), duration)
                 
-#             # Perform the click with the selected coordinates
-#             x = random.uniform(coords[0][0], coords[0][1])
-#             y = random.uniform(coords[1][0], coords[1][1])
-#             __clicker((x, y), duration)
-    
-#         shoot_invader(6.5, 25)
+            __clicker((
+                random.uniform(coords[0][0], coords[0][1]),
+                random.uniform(coords[1][0], coords[1][1])),
+            duration)
 
-#         for click in clicks_2:
-#             coords = click[0]
-#             duration = click[1]
-#             x = random.uniform(coords[0][0], coords[0][1])
-#             y = random.uniform(coords[1][0], coords[1][1])
-#             __clicker((x, y), duration)
+        if choice == 1:     coords = ((505,  530), (411,  430))
+        elif choice == 2:   coords = ((505,  540), (529,  550))
+        elif choice == 3:   coords = ((308,  340), (528,  550))
+        elif choice == 4:   coords = ((315,  350), (411,  430))
+
+        __clicker((
+                random.uniform(coords[0][0], coords[0][1]),
+                random.uniform(coords[1][0], coords[1][1])),
+            duration)
+
+        shoot_invader(6.5, 25)
+
+        for click in clicks_2:
+            coords = click[0]
+            duration = click[1]
+            __clicker((
+                random.uniform(coords[0][0], coords[0][1]),
+                random.uniform(coords[1][0], coords[1][1])),
+            duration)
  
-#TASKS
+TASKS
 def main():
     count = 0
     clicks = [
         #  min_x max_x  min_y max_y  duration
-        (((468,  522), (597,  603)), 0.25),
-        (((504,  558), (632,  639)), 0.25)]
+        (((502,  559), (690,  697)), 0.25),
+        (((542,  602), (737,  742)), 0.25)]
 
     while True:
         count += 1
