@@ -41,8 +41,8 @@ def move_cursor_randomly(duration):
 
     for i in range(random.randint(1, 3)):
         pyautogui.moveRel(
-            random.uniform(-10, 10),
-            random.uniform(-10, 10),
+            random.uniform(-5, 5),
+            random.uniform(-5, 5),
             duration=random.uniform(0, 0.1))
 
     pyautogui.moveTo(
@@ -57,7 +57,7 @@ def click_randomly(duration):
     pyautogui.click(coordinates)
 
 def random_sleep():
-    if random.randint(1, 222) == 1:
+    if random.randint(1, 666) == 1:
         sleep_time = random.uniform(0, 120)
         print("Going to sleep for {} seconds".format(sleep_time))
         time.sleep(sleep_time)
@@ -71,6 +71,8 @@ def move_cursor(coordinates, duration, easing_functions=[]):
     coordinates = (
         coordinates[0] + jitter[0],
         coordinates[1] + jitter[1])
+
+    random_sleep()
 
     # Use the provided easing functions,
     # or default to some common ones if none were provided.
@@ -90,10 +92,10 @@ def move_cursor(coordinates, duration, easing_functions=[]):
         tween=random.choice(easing_functions))
 
     # Add some random variation in the path of the cursor.
-    for i in range(random.randint(1, 3)):
+    for i in range(random.randint(0, 3)):
         pyautogui.moveRel(
-            random.uniform(-10, 10),
-            random.uniform(-10, 10),
+            random.uniform(-7, 7),
+            random.uniform(-7, 7),
             duration=random.uniform(0, 0.1))
 
     # Move the cursor to the final destination.
@@ -119,9 +121,9 @@ def __clicker(coordinates, duration=0.4):
 
 def shoot_invader(duration, count):
     for i in range(count):
-        __clicker((327, 682), 0.4, 0.1)
+        __clicker((327, 682), 0.4)
         time.sleep(duration)
-    __clicker((519, 680), 0.4, 0.1)
+    __clicker((519, 680), 0.4)
 
 def generate_random_string(size):
     return ''.join(
@@ -155,51 +157,99 @@ def random_sleep():
 
 # INVADERS
 # def main():
-#     clicks = [
-# 		((363, 119), 1.2), # navigator
-# 		((686, 419), 0.9), # invader location
-# 		((342, 596), 0.7), # yes, go
-# 		((331, 559), 1),   # location under it
-#         ((537, 609), 0.5), # apply
-#         ((342, 601), 0.5), # yes
-#         ((514, 425), 0.7)] # click invader
-
-#     for click in clicks:
-#         coordinates, duration = click
-#         __clicker(coordinates, duration)
-#     shoot_invader(6.5, 25)
- 
-
-# TASKS
-# def main():
 #     count = 0
-#     clicks = [
-# 		((363, 119), 0.5),
-# 		((686, 419), 0.5)]
-#     move_cursor_randomly(10)
+#     clicks_1 = [
+#         #  min_x max_x  min_y max_y  duration
+#         (((364,  375), (114,  123)), 1), # Navigator
+#         (((673,  709), (417,  421)), 0.6), # Invader's location
+#         (((316,  378), (594,  603)), 0.5), # Yes, go to coordinates
+#         (((317,  356), (548,  579)), 0.5),
+#         (((507,  564), (600,  612)), 0.5), # Apply
+#         (((318,  375), (596,  603)), 0.4), # Yes
+#         (((526,  546), (412,  425)), 0.9)] # click invader
+    
+#     clicks_2 = [
+#         #  min_x max_x  min_y max_y  duration
+#         (((526,  546), (412,  425)), 0.9)] # turn off
+
+
 #     while True:
 #         count += 1
 #         print (f"[loop: '{count}']", end ="\r")
-#         for click in clicks:
-#             __clicker(*click)
+#         for i, click in enumerate(clicks_1):
+#             coords = click[0]
+#             duration = click[1]
+#             if i == 3:
+#                 # Prompt the user to choose coordinates
+#                 print("Choose which coordinates to use for the click:")
+#                 print("1. ((317,  356), (548,  579)) # down")
+#                 print("2. ((295,  320), (410,  426)) # left")
+#                 print("3. ((480,  520), (400,  440)) # up")
+#                 print("4. ((470,  505), (529,  560)) # right")
+#                 print(coords)
+#                 choice = int(input())
+#                 if choice == 1:
+#                     coords = ((317,  356), (548,  579))
+#                 elif choice == 2:
+#                     coords = ((295,  320), (410,  426))
+#                 elif choice == 3:
+#                     coords = ((480,  520), (400,  440))
+#                 elif choice == 4:
+#                     coords = ((470,  505), (529,  560))
+                
+#             # Perform the click with the selected coordinates
+#             x = random.uniform(coords[0][0], coords[0][1])
+#             y = random.uniform(coords[1][0], coords[1][1])
+#             __clicker((x, y), duration)
+    
+#         shoot_invader(6.5, 25)
 
-#RENAME
+#         for click in clicks_2:
+#             coords = click[0]
+#             duration = click[1]
+#             x = random.uniform(coords[0][0], coords[0][1])
+#             y = random.uniform(coords[1][0], coords[1][1])
+#             __clicker((x, y), duration)
+ 
+#TASKS
 def main():
-    clicks_1 = [
-		((363, 119), 0.5),
-		((686, 419), 0.5)]
-
-    clicks_2 = [
-		((363, 119), 0.5),
-		((686, 419), 0.5)]
+    count = 0
+    clicks = [
+        #  min_x max_x  min_y max_y  duration
+        (((502,  559), (690,  697)), 0.25),
+        (((542,  602), (737,  742)), 0.25)]
 
     while True:
-        for click in clicks_1:
-            __clicker(*click)
-        __writer(
-            generate_random_string(random_inrange(8, 16)))
-        for click in clicks_2:
-            __clicker(*click)
+        count += 1
+        print (f"[loop: '{count}']", end ="\r")
+        for click in clicks:
+            coords = click[0]
+            duration = click[1]
+            x = random.uniform(coords[0][0], coords[0][1])
+            y = random.uniform(coords[1][0], coords[1][1])
+            __clicker((x, y), duration)
+
+#RENAME
+# def main():
+#     clicks_1 = [
+# 		((519, 462), 0.5),
+# 		((402, 424), 0.3),
+# 		((402, 424), 0.2)]
+
+#     clicks_2 = [
+# 		((535, 624), 0.3)]
+
+#     count = 0
+#     while True:
+#         count += 1
+#         print (f"[loop: '{count}']", end ="\r")
+#         for click in clicks_1:
+#             __clicker(*click)
+#         press_backspace(16)
+#         __writer(
+#             generate_random_string(random_inrange(8, 16)))
+#         for click in clicks_2:
+#             __clicker(*click)
 
 
 if __name__ == "__main__":
