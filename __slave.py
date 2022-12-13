@@ -10,6 +10,15 @@
 #     person. Save time, increase productivity, and never perform another tedious manual task again.
 #
 
+print ("""
+__________         _________.__
+\______   \___.__./   _____/|  | _____ ___  __ ____
+ |     ___<   |  |\_____  \ |  | \__  \\  \/ // __ \
+ |    |    \___  |/        \|  |__/ __ \\   /\  ___/
+ |____|    / ____/_______  /|____(____  /\_/  \___  >
+           \/            \/           \/          \/ v1.0
+""")
+
 import pyautogui
 import time
 import random
@@ -56,6 +65,20 @@ def random_inrange(min_value=0, max_value=100):
 #     coordinates = random_coordinates()
 #     move_cursor(coordinates, duration)
 #     pyautogui.click(coordinates)
+
+def real_click():
+    if randint(1, 19) != 1:
+        sleep(93 / randint(83,201))
+        pyautogui.click()
+    else:
+        tmp_rand = randint(1, 3)
+        if tmp_rand == 1:
+            #double click
+            pyautogui.click()
+            sleep(randint(43, 113) / 1000)
+            pyautogui.click()
+        elif tmp_rand == 2:
+            pyautogui.click(button = 'right')
 
 def random_sleep():
     if random.randint(1, 666) == 1:
@@ -105,13 +128,8 @@ def move_cursor(coordinates, duration, easing_functions=[]):
 
 
 def __click(coordinates, duration=0.4):
-    # Add some random variation to the duration of the click.
     duration = random.uniform(duration * 0.8, duration * 1.2)
     move_cursor(coordinates, duration)
-    # Attempt to click at the specified coordinates.
-    # If a FailSafeException is raised (e.g. because the cursor
-    # moved outside of the screen), try clicking
-    # again with the same parameters.
     try:
         pyautogui.click(coordinates)
     except pyautogui.FailSafeException:
@@ -146,7 +164,9 @@ def random_sleep():
         print("Going to sleep for {} seconds".format(sleep_time))
         time.sleep(sleep_time)
 
+######################################################################
 
+# INVADERS
 def shoot_invader(duration, count):
     bonus = 0
     print ("Thank you next")
@@ -158,8 +178,6 @@ def shoot_invader(duration, count):
     print (f"\n  ! Enhanced attack...")
     __click((519, 680), 0.4)
 
-
-# INVADERS
 def main():
     count = 0
     clicks_1 = [
@@ -169,7 +187,7 @@ def main():
         (((317,  356), (548,  579)), 0.8),   # Location down
         (((507,  564), (582,  595)), 0.7),   # Apply
         (((318,  375), (596,  603)), 0.7)]   # Yes
-    
+
     clicks_2 = [
         (((600,  610), (320,  320)), 2)]   # Red cross
 
@@ -183,14 +201,14 @@ def main():
             coords = click[0]
             duration = click[1]
             if click == (((317,  356), (548,  579)), 0.8):
-               
+
                 choice = random.randint(1, 4)
 
                 if   choice == 1:   coords = POSITION_DOWN
                 elif choice == 2:   coords = POSITION_LEFT
                 elif choice == 3:   coords = POSITION_UP
                 elif choice == 4:   coords = POSITION_RIGHT
-                
+
             __click((
                 random.uniform(coords[0][0], coords[0][1]),
                 random.uniform(coords[1][0], coords[1][1])),
