@@ -1,11 +1,6 @@
-# import pyautogui
-
-# while True:
-#     x, y = pyautogui.position()
-#     print(f"Cursor position: ({x}, {y})", end="\r")
-
 #! python3
-import pyautogui, sys
+import pyautogui
+
 print('Press Ctrl-C to quit.')
 try:
     while True:
