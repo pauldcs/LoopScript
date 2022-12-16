@@ -1,5 +1,6 @@
 from srcs.LoopScript import lex
 from srcs.LoopScript import parse
+from srcs.execute import traverse
 import argparse
 import sys
 
@@ -7,11 +8,6 @@ def preprocess(text):
     lines = text.split("\n")
     lines = [line.split("#")[0].strip() for line in lines]
     return "\n".join(lines)
-
-def traverse(node, indent=0):
-    print("    " * indent + "└── " + str(node))
-    for child in node.children:
-        traverse(child, indent=indent+1)
 
 def main(script_file):
 	try:

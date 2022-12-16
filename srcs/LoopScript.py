@@ -27,7 +27,7 @@ move_regex = re.compile(
 		(?P<wait>[\d.]+)\)
 	""", re.VERBOSE)
 
-click_regex = re.compile(r"click\s+(left|right)", re.IGNORECASE)
+click_regex = re.compile(r"click\s+(left|right|double)", re.IGNORECASE)
 type_regex = re.compile(
 	r"""
 		type\s+
@@ -83,7 +83,7 @@ class ASTNode:
         self.children = []
 
     def __repr__(self):
-        return f"ASTNode({self.children})"
+        return f"node ({self.children})"
 
 class LoopNode(ASTNode):
     def __init__(self, count):
@@ -91,14 +91,14 @@ class LoopNode(ASTNode):
         self.count = count
 
     def __repr__(self):
-        return f"LoopNode(count={self.count})"
+        return f"loop ({self.count})"
 
 class EndNode(ASTNode):
     def __init__(self):
         super().__init__()
 
     def __repr__(self):
-        return f"EndNode()"
+        return f"end"
 
 class MoveNode(ASTNode):
     def __init__(self, min_x, min_y, max_x, max_y, duration, wait):
@@ -111,7 +111,7 @@ class MoveNode(ASTNode):
         self.wait = wait
 
     def __repr__(self):
-        return f"MoveNode(min_x={self.min_x}, min_y={self.min_y}, max_x={self.max_x}, max_y={self.max_y}, duration={self.duration}, wait={self.wait})"
+        return f"move ({self.min_x}, {self.min_y}, {self.max_x}, {self.max_y}, {self.duration}, {self.wait})"
 
 class ClickNode(ASTNode):
     def __init__(self, button):
@@ -119,7 +119,7 @@ class ClickNode(ASTNode):
         self.button = button
 
     def __repr__(self):
-        return f"ClickNode(button='{self.button}')"
+        return f"click ({self.button})"
 
 class TypeNode(ASTNode):
     def __init__(self, str):
@@ -127,7 +127,7 @@ class TypeNode(ASTNode):
         self.str = str
 
     def __repr__(self):
-        return f"TypeNode(str='{self.str}')"
+        return f"type ('{self.str}')"
 
 def parse(tokens):
     stack = []
@@ -164,4 +164,6 @@ def parse(tokens):
                 stack[-1].children.append(node)
             else:
                 root = node
+        else:
+            return None
     return root
