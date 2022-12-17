@@ -1,4 +1,4 @@
-from srcs.skrpt import lex, parse, traverse, execute
+from srcs.skrpt import lex, parse, traverse
 import sys
 
 print("""\
@@ -21,7 +21,6 @@ def main(infile):
 			ast = parse(lex(code))
 			print(".")
 			traverse(ast)
-			#execute(ast)
 	except Exception as e:
 		print(f"An error occurred: {e}")
 		return 1

@@ -1,5 +1,6 @@
 import re
 from random import randint, uniform
+from typing import List, Tuple
 
 TT_MOVE     = 'TT_MOVE'
 TT_CLICK    = 'TT_CLICK'
@@ -239,38 +240,20 @@ def parse(tokens):
             return None
     return root
 
-def traverse(node, indent=0):
-    print("    " * indent + "└── " + str(node))
-    for child in node.children:
-        traverse(child, indent=indent+1)
-
-def execute(node):
-    for child in node.children:
-        if isinstance(child, LoopNode):
-            print("LOOP")
-            for i in range(child.count):
-                execute(child)
-        elif isinstance(child, EndNode):
-            return
-        elif isinstance(child, MoveNode):
-            print("MOVE")
-            # move_mouse(
-            #     child.min_x,
-            #     child.min_y,
-            #     child.max_x,
-            #     child.max_y,
-            #     child.duration, child.wait)
-        elif isinstance(child, ClickNode):
-            print("CLICK")
-            # click_mouse(child.button)
-        elif isinstance(child, TypeNode):
-            print("TYPE")
-            # type_string(child.str)
-        elif isinstance(child, RTextNode):
-            print("RTEXT")
-            # rtext(child.arg)
-        elif isinstance(child, RStrNode):
-            print("RSTR")
-            # rstr(child.arg)
-        else:
-            print(f"loop_script: Unknown node type: {child}")
+def traverse(node):
+    if isinstance(node, LoopNode):
+        count = choose_random_int(node.count[0], node.count[1])
+        for i in range(count):
+            # execute each child node of the LoopNode
+            for child in node.children:
+                traverse(child)
+    elif isinstance(node, MoveNode):
+        print(node)
+    elif isinstance(node, ClickNode):
+        print(node)
+    elif isinstance(node, TypeNode):
+        print(node)
+    elif isinstance(node, RTextNode):
+        print(node)
+    elif isinstance(node, RStrNode):
+        print(node)
