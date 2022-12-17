@@ -1,4 +1,5 @@
 import re
+import sys
 from random import randint, uniform
 from typing import List, Tuple
 
@@ -31,13 +32,15 @@ rtext_regex = re.compile(
         (?P<min>\d+),\s+
         (?P<max>\d+)\)
     """,
-    re.IGNORECASE | re.VERBOSE)
+    re.IGNORECASE
+        | re.VERBOSE)
 rstr_regex = re.compile(
     r"""rstr\s+\(
         (?P<min>\d+),\s+
         (?P<max>\d+)\)
     """,
-    re.IGNORECASE | re.VERBOSE)
+    re.IGNORECASE
+        | re.VERBOSE)
 end_regex = re.compile(
     r"end",
     re.IGNORECASE)
@@ -56,13 +59,14 @@ move_regex = re.compile(
 type_regex = re.compile(
 	r"""
 		type\s+
-		"
-		(?P<str>.*?)
-		"
-	""",re.VERBOSE | re.DOTALL | re.MULTILINE)
+		"(?P<str>.*?)"
+	""",re.VERBOSE
+            | re.DOTALL
+            | re.MULTILINE)
 
 def lex(code):
     tokens = []
+    unbalanced = 0
     commands = code.split(";")
     cmd_number = 1
     for cmd in commands[:-1]:
@@ -76,10 +80,12 @@ def lex(code):
         rstr_match = rstr_regex.search(cmd)
 
         if loop_match:
+            unbalanced += 1
             min_count = int(loop_match.group("min"))
             max_count = int(loop_match.group("max"))
             tokens.append((TT_LOOP, (min_count, max_count)))
         elif end_match:
+            unbalanced -= 1
             tokens.append((TT_LOOP_END, None))
         elif move_match:
             min_x = int(move_match.group("min_x"))
@@ -110,7 +116,11 @@ def lex(code):
             tokens.append((TT_RSTR, (min_count, max_count)))
         else:
             print(f"loop_script: lex error on command {cmd_number}: '{cmd}'")
+            sys.exit(1)
         cmd_number += 1
+    if (unbalanced):
+        print(f"loop_script: Error: loops must be delimited by a 'end'")
+        sys.exit(1)
     return tokens
 
 class ASTNode:

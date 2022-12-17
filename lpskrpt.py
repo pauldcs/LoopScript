@@ -1,4 +1,4 @@
-from srcs.skrpt import lex, parse, traverse
+from srcs.LPS import lex, parse, traverse
 import sys
 
 def preprocess(text):

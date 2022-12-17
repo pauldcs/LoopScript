@@ -1,2 +1,2 @@
-./tester.sh -p lpskrpt.py -s s -m 1
+./tester.sh -p "lpskrpt.py" -i tests -s "s" -m 1
 rm -rf outfiles
