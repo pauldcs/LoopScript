@@ -1,14 +1,6 @@
 from srcs.skrpt import lex, parse, traverse
 import sys
 
-print("""\
-.__                __                   __                   
-|  | ______  _____|  | ________________/  |_   ______ ___.__.
-|  | \____ \/  ___/  |/ /\_  __ \____ \   __\  \____ <   |  |
-|  |_|  |_> >___ \|    <  |  | \/  |_> >  |    |  |_> >___  |
-|____/   __/____  >__|_ \ |__|  |   __/|__| /\ |   __// ____|
-     |__|       \/     \/       |__|        \/ |__|   \/""")
-
 def preprocess(text):
     lines = text.split("\n")
     lines = [line.split("#")[0].strip() for line in lines]
@@ -19,7 +11,6 @@ def main(infile):
 		with open(infile, "r") as f:
 			code = preprocess(f.read())
 			ast = parse(lex(code))
-			print(".")
 			traverse(ast)
 	except Exception as e:
 		print(f"An error occurred: {e}")

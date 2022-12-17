@@ -242,9 +242,10 @@ def parse(tokens):
 
 def traverse(node):
     if isinstance(node, LoopNode):
-        count = choose_random_int(node.count[0], node.count[1])
+        count = choose_random_int(
+            node.count[0],
+            node.count[1])
         for i in range(count):
-            # execute each child node of the LoopNode
             for child in node.children:
                 traverse(child)
     elif isinstance(node, MoveNode):
