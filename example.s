@@ -1,12 +1,12 @@
-loop (2, 2);
-	move
-		(365, 365)
-		(275, 275)
+loop 1;
+	mov (365:400),
+		(275:500),
 		1.0, 0.5;
 	click left;
-	move
-		(900, 900)
-		(220, 220)
-		0.5, 1.0;
-	click left;
+	type "hello world";
+	loop 2;
+		mov 20, 30, 4.0, 0.5;
+		click right;
+		rstr 10;
+	end;
 end;

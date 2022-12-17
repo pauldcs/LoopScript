@@ -1,19 +1,16 @@
-from srcs.LPS import lex, parse, traverse
+from srcs.LPS import lex, execute, preprocess
 import sys
-
-def preprocess(text):
-    lines = text.split("\n")
-    lines = [line.split("#")[0].strip() for line in lines]
-    return "\n".join(lines)
 
 def main(infile):
 	try:
 		with open(infile, "r") as f:
 			code = preprocess(f.read())
-			ast = parse(lex(code))
-			traverse(ast)
+			lexed = lex(code)
+			for i in lexed:
+				print(i)
+			execute(lexed)
 	except Exception as e:
-		print(f"An error occurred: {e}")
+		print(f"Error: {e}")
 		return 1
 
 if __name__ == "__main__":
