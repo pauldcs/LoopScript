@@ -57,7 +57,7 @@ click_regex = re.compile(
     re.IGNORECASE)
 
 rtext_regex = re.compile(
-    r"""rtext\s+\(
+    r"""rtxt\s+\(
         (?P<min>\d+),\s+
         (?P<max>\d+)\)
     """,
@@ -179,7 +179,8 @@ def execute(tokens):
 
 def execute_token(token):
     now = datetime.datetime.now()
-    time_string = now.strftime("%H:%M:%S ")
+    #time_string = now.strftime("%H:%M:%S ")
+    time_string = ""
     token_type = token[0]
     if token_type == TT_MOVE:
         x, y, duration, wait = token[1]
@@ -195,7 +196,7 @@ def execute_token(token):
         print(f"{time_string}   del", count)
     elif token_type == TT_RTEXT:
         count = token[1]
-        print(f"{time_string} rtext", count)
+        print(f"{time_string}  rtxt", count)
     elif token_type == TT_RSTR:
         count = token[1]
         print(f"{time_string}  rstr", count)

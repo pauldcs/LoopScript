@@ -1,6 +1,5 @@
 from srcs.LPS import lex, execute, preprocess
 import sys
-
 # print("""
 # ██       ██████   ██████  ██████  ███████  ██████ ██████  ██ ██████  ████████ 
 # ██      ██    ██ ██    ██ ██   ██ ██      ██      ██   ██ ██ ██   ██    ██    
@@ -8,7 +7,6 @@ import sys
 # ██      ██    ██ ██    ██ ██           ██ ██      ██   ██ ██ ██         ██    
 # ███████  ██████   ██████  ██      ███████  ██████ ██   ██ ██ ██         ██
 # """)
-
 def main(infile):
     try:
         with open(infile, "r") as f:

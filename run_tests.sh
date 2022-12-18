@@ -1,2 +1,3 @@
-./tester.sh -p "entry.py" -i tests -s "s" -m 1
+./tester.sh -p "loopscript.py" -i tests -s "lps" -m 1
 rm -rf outfiles
+rm -rf srcs/__pycache__

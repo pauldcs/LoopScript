@@ -1,0 +1,7 @@
+const COORDS (365, 400), (275, 500);
+mov
+	$COORDS,
+	2,
+	1;
+type "Hello world";
+click left;
