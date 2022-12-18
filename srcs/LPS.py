@@ -1,6 +1,8 @@
 import re
 import sys
 from random import randint, uniform
+import datetime
+import time
 
 TT_MOVE     = 'TT_MOVE'
 TT_CLICK    = 'TT_CLICK'
@@ -77,12 +79,18 @@ type_regex = re.compile(
             | re.DOTALL
             | re.MULTILINE)
 
-def preprocess(s: str) -> str:
-    def replace(match):
-        num_a = int(match.group(1))
-        num_b = int(match.group(2))
-        return str(randint(num_a, num_b))
-    return re.sub(r'\((\d+)\s*:\s*(\d+)\)', replace, s)
+def preprocess(code):
+    const_regex = re.compile(r'const\s+(\w+)\s+(.+);')
+    constants = {}
+    for match in const_regex.finditer(code):
+        name, value = match.groups()
+        constants[name] = value
+        code = code.replace(match.group(0), '')
+    for name, value in constants.items():
+        code = code.replace(f'${name}', value)
+    lines = code.split("\n")
+    lines = [line.split("#")[0].strip() for line in lines]
+    return "\n".join(lines).strip()
 
 def lex(code):
     tokens = []
@@ -170,22 +178,24 @@ def execute(tokens):
         raise Exception("Unbalanced loop block")
 
 def execute_token(token):
+    now = datetime.datetime.now()
+    time_string = now.strftime("%H:%M:%S ")
     token_type = token[0]
     if token_type == TT_MOVE:
         x, y, duration, wait = token[1]
-        print("  move:", x, y, duration, wait)
+        print(f"{time_string}  move", x, y, duration, wait)
     elif token_type == TT_CLICK:
         button = token[1]
-        print(" click:", button)
+        print(f"{time_string} click", button)
     elif token_type == TT_TYPE:
         str = token[1]
-        print("  type:", str)
+        print(f"{time_string}  type", str)
     elif token_type == TT_DEL:
         count = token[1]
-        print("   del:", count)
+        print(f"{time_string}   del", count)
     elif token_type == TT_RTEXT:
         count = token[1]
-        print(" rtext:", count)
+        print(f"{time_string} rtext", count)
     elif token_type == TT_RSTR:
         count = token[1]
-        print("  rstr:", count)
+        print(f"{time_string}  rstr", count)
