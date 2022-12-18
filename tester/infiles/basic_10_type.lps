@@ -1,6 +1,0 @@
-const str "Hello world";
-loop 10;
-	type $str;
-	rstr (15, 15);
-	rtxt (0, 0);
-end;

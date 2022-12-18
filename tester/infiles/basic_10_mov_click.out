@@ -1,20 +1,20 @@
-  move (365, 400) (275, 500) 1.0 0.0
- click left
-  move (365, 400) (275, 500) 1.0 0.0
- click left
-  move (365, 400) (275, 500) 1.0 0.0
- click left
-  move (365, 400) (275, 500) 1.0 0.0
- click left
-  move (365, 400) (275, 500) 1.0 0.0
- click left
-  move (365, 400) (275, 500) 1.0 0.0
- click left
-  move (365, 400) (275, 500) 1.0 0.0
- click left
-  move (365, 400) (275, 500) 1.0 0.0
- click left
-  move (365, 400) (275, 500) 1.0 0.0
- click left
-  move (365, 400) (275, 500) 1.0 0.0
- click left
+tester/infiles/basic_10_mov_click.lps:  13:34:19   move: (365, 400) (275, 500) 1.0
+tester/infiles/basic_10_mov_click.lps:  13:34:19  click: left
+tester/infiles/basic_10_mov_click.lps:  13:34:19   move: (365, 400) (275, 500) 1.0
+tester/infiles/basic_10_mov_click.lps:  13:34:19  click: left
+tester/infiles/basic_10_mov_click.lps:  13:34:19   move: (365, 400) (275, 500) 1.0
+tester/infiles/basic_10_mov_click.lps:  13:34:19  click: left
+tester/infiles/basic_10_mov_click.lps:  13:34:19   move: (365, 400) (275, 500) 1.0
+tester/infiles/basic_10_mov_click.lps:  13:34:19  click: left
+tester/infiles/basic_10_mov_click.lps:  13:34:19   move: (365, 400) (275, 500) 1.0
+tester/infiles/basic_10_mov_click.lps:  13:34:19  click: left
+tester/infiles/basic_10_mov_click.lps:  13:34:19   move: (365, 400) (275, 500) 1.0
+tester/infiles/basic_10_mov_click.lps:  13:34:19  click: left
+tester/infiles/basic_10_mov_click.lps:  13:34:19   move: (365, 400) (275, 500) 1.0
+tester/infiles/basic_10_mov_click.lps:  13:34:19  click: left
+tester/infiles/basic_10_mov_click.lps:  13:34:19   move: (365, 400) (275, 500) 1.0
+tester/infiles/basic_10_mov_click.lps:  13:34:19  click: left
+tester/infiles/basic_10_mov_click.lps:  13:34:19   move: (365, 400) (275, 500) 1.0
+tester/infiles/basic_10_mov_click.lps:  13:34:19  click: left
+tester/infiles/basic_10_mov_click.lps:  13:34:19   move: (365, 400) (275, 500) 1.0
+tester/infiles/basic_10_mov_click.lps:  13:34:19  click: left

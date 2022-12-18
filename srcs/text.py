@@ -1,6 +1,7 @@
 import random
 
 def generate_random_text(
+		num_words=1,
 		the_words=None,
 		include_punctuation=False,
 		include_digits=False):
@@ -98,7 +99,6 @@ def generate_random_text(
 		"comprehension", "knowledge"
 	]
 	punctuation = [".", "?", "!", ",", ":", ";"]
-	num_words = random.randint(5, 10)
 	capitalize_first_word = random.random() < 0.5
 
 	if the_words == None:

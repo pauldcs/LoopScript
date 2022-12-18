@@ -1,5 +1,5 @@
 from random import randint, uniform
-from srcs.act import move_cursor, click_spot, human_type, generate_random_string
+from srcs.act import move_cursor, human_click, human_type, generate_random_string
 from srcs.text import generate_random_text
 import re
 import sys
@@ -16,7 +16,9 @@ TT_RSTR     = 'TT_RSTR'
 
 
 def choose_random_int(a: int, b: int) -> int:
-    return randint(a, b)
+    min_val = min(a, b)
+    max_val = max(a, b)
+    return randint(min_val, max_val)
 
 def choose_random_float(a: float, b: float) -> float:
     return uniform(a, b)
@@ -81,6 +83,7 @@ type_regex = re.compile(
             | re.MULTILINE)
 
 def preprocess(code):
+    code = code
     const_regex = re.compile(r'const\s+(\w+)\s+(.+);')
     constants = {}
     for match in const_regex.finditer(code):
@@ -152,7 +155,7 @@ def lex(code):
         sys.exit(1)
     return tokens
 
-def execute(tokens):
+def execute(tokens, testing=False):
     stack = []
     i = 0
     while i < len(tokens):
@@ -168,41 +171,54 @@ def execute(tokens):
             loop_count = loop_start_token[1]
             loop_block = tokens[loop_start_index + 1:i]
             for j in range(loop_count):
-                execute(loop_block)
+                execute(loop_block, testing)
             i += 1
         else:
-            execute_token(token)
+            execute_token(token, testing)
             i += 1
     if stack:
         raise Exception("Unbalanced loop block")
 
-def execute_token(token):
+def execute_token(token, testing=False):
     now = datetime.datetime.now()
     time_str = now.strftime("%H:%M:%S")
-    name = sys.argv[1]
     #time_str = ""
     token_type = token[0]
+
     if token_type == TT_MOVE:
         x, y, duration = token[1]
-        print(f"{name}:  {time_str}   move:", x, y, duration)
-        # move_cursor((
-        #         choose_random_int(x[0], x[1]),
-        #         choose_random_int(y[0], y[1])
-        #     ),
-        #     duration
-        # )
+        if not testing:
+            move_cursor((
+                    choose_random_int(x[0], x[1]),
+                    choose_random_int(y[0], y[1])
+                ), duration)
+        print(f"{time_str}   move:", x, y, duration)
+
     elif token_type == TT_CLICK:
         button = token[1]
-        print(f"{name}:  {time_str}  click:", button)
+        print(f"{time_str}  click:", button)
+        if not testing:
+            human_click()
+
     elif token_type == TT_TYPE:
         str = token[1]
-        print(f"{name}:  {time_str}   type:", str)
+        print(f"{time_str}   type:", str)
+        human_type(str)
+
     elif token_type == TT_DEL:
         count = token[1]
-        print(f"{name}:  {time_str}    del:", count)
+        print(f"{time_str}    del:", count)
+
     elif token_type == TT_RTEXT:
         count = token[1]
-        print(f"{name}:  {time_str}   rtxt:", count)
+        print(f"{time_str}   rtxt:", count)
+        human_type(generate_random_text(
+            count,
+            None,
+            True))
+
     elif token_type == TT_RSTR:
         count = token[1]
-        print(f"{name}:  {time_str}   rstr:", count)
+        rstr = generate_random_string(count)
+        print(f"{time_str}   rstr:", count)
+        human_type(rstr)

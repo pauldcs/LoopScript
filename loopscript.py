@@ -6,7 +6,9 @@ def main(infile):
         with open(infile, "r") as f:
             code = preprocess(f.read())
             tokens = lex(code)
-            execute(tokens)
+            execute(tokens, False)
+            #for i in tokens:
+            #    print(i)
     except Exception as e:
         print(f"Error: {e}")
         return 1
