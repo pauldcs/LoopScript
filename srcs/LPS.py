@@ -1,8 +1,9 @@
+from random import randint, uniform
+from srcs.act import move_cursor, click_spot, human_type, generate_random_string
+from srcs.text import generate_random_text
 import re
 import sys
-from random import randint, uniform
 import datetime
-import time
 
 TT_MOVE     = 'TT_MOVE'
 TT_CLICK    = 'TT_CLICK'
@@ -12,6 +13,7 @@ TT_LOOP     = 'TT_LOOP'
 TT_LOOP_END = 'TT_LOOP_END'
 TT_RTEXT    = 'TT_RTEXT'
 TT_RSTR     = 'TT_RSTR'
+
 
 def choose_random_int(a: int, b: int) -> int:
     return randint(a, b)
@@ -40,8 +42,7 @@ move_regex = re.compile(
         \(
         (?P<max_x>\d+),\s+
         (?P<max_y>\d+)\),\s+
-        (?P<duration>[\d.]+),\s+
-        (?P<wait>[\d.]+)
+        (?P<duration>[\d.]+)
     """, re.VERBOSE)
 
 click_regex = re.compile(
@@ -120,13 +121,11 @@ def lex(code):
             max_x = int(move_match.group("max_x"))
             max_y = int(move_match.group("max_y"))
             duration = float(move_match.group("duration"))
-            wait = float(move_match.group("wait"))
             tokens.append(
                 (TT_MOVE, (
                     (min_x, min_y),
                     (max_x, max_y),
-                    duration, 
-                    wait)))
+                    duration)))
         elif click_match:
             button = click_match.group(1)
             tokens.append((TT_CLICK, button))
@@ -179,24 +178,31 @@ def execute(tokens):
 
 def execute_token(token):
     now = datetime.datetime.now()
-    #time_string = now.strftime("%H:%M:%S ")
-    time_string = ""
+    time_str = now.strftime("%H:%M:%S")
+    name = sys.argv[1]
+    #time_str = ""
     token_type = token[0]
     if token_type == TT_MOVE:
-        x, y, duration, wait = token[1]
-        print(f"{time_string}  move", x, y, duration, wait)
+        x, y, duration = token[1]
+        print(f"{name}:  {time_str}   move:", x, y, duration)
+        # move_cursor((
+        #         choose_random_int(x[0], x[1]),
+        #         choose_random_int(y[0], y[1])
+        #     ),
+        #     duration
+        # )
     elif token_type == TT_CLICK:
         button = token[1]
-        print(f"{time_string} click", button)
+        print(f"{name}:  {time_str}  click:", button)
     elif token_type == TT_TYPE:
         str = token[1]
-        print(f"{time_string}  type", str)
+        print(f"{name}:  {time_str}   type:", str)
     elif token_type == TT_DEL:
         count = token[1]
-        print(f"{time_string}   del", count)
+        print(f"{name}:  {time_str}    del:", count)
     elif token_type == TT_RTEXT:
         count = token[1]
-        print(f"{time_string}  rtxt", count)
+        print(f"{name}:  {time_str}   rtxt:", count)
     elif token_type == TT_RSTR:
         count = token[1]
-        print(f"{time_string}  rstr", count)
+        print(f"{name}:  {time_str}   rstr:", count)

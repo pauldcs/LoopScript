@@ -76,7 +76,7 @@ def move_cursor(coordinates, duration=0.7, easing_functions=[]):
 		duration=duration / 4,
 		tween=random.choice(easing_functions))
 
-def click_spot(coordinates, duration=1):
+def click_spot(coordinates, duration=0.3):
 	move_cursor(coordinates, duration)
 	human_click()
 
