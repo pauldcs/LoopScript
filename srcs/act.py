@@ -42,7 +42,6 @@ def human_click():
 		dx = random.uniform(-1, 1)
 		dy = random.uniform(-1, 1)
 		pyautogui.moveRel(dx, dy, duration=0.01)
-	time.sleep(random.uniform(0.1, 0.3))
 	button = "left"
 	duration = random.uniform(0.1, 0.5)
 	pyautogui.mouseDown(button=button, duration=duration)
@@ -66,7 +65,7 @@ def move_cursor(coordinates, duration=0.7, easing_functions=[]):
 		coordinates,
 		duration=(duration * speed),
 		tween=random.choice(easing_functions))
-	for i in range(random.randint(0, 2)):
+	for i in range(random.randint(0, 1)):
 		pyautogui.moveRel(
 			random.uniform(-7, 7),
 			random.uniform(-7, 7),

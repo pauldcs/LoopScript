@@ -1,5 +1,5 @@
 loop
-	1   ; const RENAME (1042, 1027), (485, 489), 0.7;
+	1   ; const RENAME (1042, 1027), (485, 489), 0.5;
 		mov $RENAME ;
 			click left ;
 			del 16

@@ -1,18 +1,19 @@
 from random import randint, uniform
+from time import time
 from srcs.act import move_cursor, human_click, human_type, generate_random_string
 from srcs.text import generate_random_text
 import re
 import sys
 import datetime
 
-TT_MOVE     = 'TT_MOVE'
-TT_CLICK    = 'TT_CLICK'
-TT_TYPE     = 'TT_TYPE'
-TT_DEL      = 'TT_DEL'
-TT_LOOP     = 'TT_LOOP'
-TT_LOOP_END = 'TT_LOOP_END'
-TT_RTEXT    = 'TT_RTEXT'
-TT_RSTR     = 'TT_RSTR'
+TT_MOVE     = 'MOVE'
+TT_CLICK    = 'CLICK'
+TT_TYPE     = 'TYPE'
+TT_DEL      = 'DEL'
+TT_LOOP     = 'LOOP'
+TT_LOOP_END = 'LOOP_END'
+TT_RTEXT    = 'RTEXT'
+TT_RSTR     = 'RSTR'
 
 
 def choose_random_int(a: int, b: int) -> int:
@@ -182,43 +183,58 @@ def execute(tokens, testing=False):
 def execute_token(token, testing=False):
     now = datetime.datetime.now()
     time_str = now.strftime("%H:%M:%S")
-    #time_str = ""
     token_type = token[0]
 
     if token_type == TT_MOVE:
         x, y, duration = token[1]
-        if not testing:
+        if testing:
+            print(token)
+        else:
+            print(time_str, token)
             move_cursor((
                     choose_random_int(x[0], x[1]),
                     choose_random_int(y[0], y[1])
                 ), duration)
-        print(f"{time_str}   move:", x, y, duration)
 
     elif token_type == TT_CLICK:
         button = token[1]
-        print(f"{time_str}  click:", button)
-        if not testing:
+        if testing:
+            print(token)
+        else:
+            print(time_str, token)
             human_click()
 
     elif token_type == TT_TYPE:
         str = token[1]
-        print(f"{time_str}   type:", str)
-        human_type(str)
+        if testing:
+            print(token)
+        else:
+            print(time_str, token)
+            human_type(str)
 
     elif token_type == TT_DEL:
         count = token[1]
-        print(f"{time_str}    del:", count)
+        if testing:
+            print(token)
+        else:
+            print(time_str, token)
 
     elif token_type == TT_RTEXT:
         count = token[1]
-        print(f"{time_str}   rtxt:", count)
-        human_type(generate_random_text(
-            count,
-            None,
-            True))
+        if testing:
+            print(token)
+        else:
 
+            print(time_str, token)
+            human_type(generate_random_text(
+                count,
+                None,
+                True))
     elif token_type == TT_RSTR:
         count = token[1]
         rstr = generate_random_string(count)
-        print(f"{time_str}   rstr:", count)
-        human_type(rstr)
+        if testing:
+            print(token)
+        else:
+            print(time_str, token)
+            human_type(rstr)

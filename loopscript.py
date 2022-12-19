@@ -1,4 +1,4 @@
-from srcs.LPS import preprocess, lex, execute
+from srcs.loop import preprocess, lex, execute
 import sys
 
 def main(infile):
@@ -7,8 +7,6 @@ def main(infile):
             code = preprocess(f.read())
             tokens = lex(code)
             execute(tokens, False)
-            #for i in tokens:
-            #    print(i)
     except Exception as e:
         print(f"Error: {e}")
         return 1
