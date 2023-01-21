@@ -1,3 +1,5 @@
+# THIS IS AN EXAMPLE
+
 loop
 	1   ; const RENAME (1042, 1027), (485, 489), 0.5;
 		mov $RENAME ;
